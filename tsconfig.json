@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "target": "ES2015",
+    "jsx": "react-jsx",
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "noEmit": true,
+
+    /* Path Mapping Config */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/react-app/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
