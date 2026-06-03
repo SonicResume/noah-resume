@@ -1,6 +1,4 @@
-dist/
-node_modules/
-.wrangler/
-.dev.vars
-worker-configuration.d.ts
-.vercel
+node_modules
+dist
+.env
+.DS_Store
