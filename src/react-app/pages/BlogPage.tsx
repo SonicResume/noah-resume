@@ -70,7 +70,7 @@ export default function BlogPage() {
             </p>
             <button 
               style={styles.writerBtn} 
-              onClick={() => window.location.href = "mailto:sonicresumegroupe@gmail.com: Premium Copywriting Services"}
+              onClick={() => window.location.href = "supportsrg2025@gmail.com: Premium Copywriting Services"}
             >
               📬 Hire Our Copywriting Team
             </button>

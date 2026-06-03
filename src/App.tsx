@@ -13,6 +13,8 @@ import Dashboard from "./react-app/pages/Dashboard";
 import Privacy from "./react-app/pages/Privacy";
 import Terms from "./react-app/pages/Terms";
 import BlogPage from "./react-app/pages/BlogPage";
+// Import the new pricing tier page we created
+import PricingPage from "./react-app/pages/Pricing"; 
 
 export default function App() {
   return (
@@ -27,6 +29,9 @@ export default function App() {
         <Route path="bullet-points" element={<BulletPoints />} />
         <Route path="summary" element={<Summary />} />
         <Route path="builder" element={<ResumeBuilder />} />
+
+        {/* Pricing Layout */}
+        <Route path="pricing" element={<PricingPage />} />
 
         {/* Dashboard */}
         <Route path="dashboard" element={<Dashboard />} />

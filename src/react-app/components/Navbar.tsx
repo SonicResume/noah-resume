@@ -9,7 +9,7 @@ export default function Navbar() {
   const location = useLocation();
   const [user, setUser] = useState<User | null>(null);
   const [open, setOpen] = useState(false);
-  // ✅ Fixed: Changed initial declaration from window access to default false to stop SSR builds from crashing
+  // Fixed: Changed initial declaration from window access to default false to stop SSR builds from crashing
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    // ✅ Safely compute window size on the client side only
+    // Safely compute window size on the client side only
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -33,9 +33,10 @@ export default function Navbar() {
     setOpen(false);
   };
 
-  // ✅ Appended: Added Blog structural links down into the nav list automatically
+  // Mapped: Added explicit Pricing route into active navigation configurations
   const navItems = [
     { path: "/", label: "Home" },
+    { path: "/pricing", label: "Pricing" },
     { path: "/blog/winning-resume-summary", label: "Blog" },
     { path: "/contact", label: "Contact" },
   ];
