@@ -10,11 +10,6 @@ It is built with a stable frontend architecture and Firebase-backed data systems
 
 ---
 
-## 🌐 Live Demo
-https://sonicresume.com
-
----
-
 ## 🎨 Design System
 
 This workspace uses a modern SaaS-inspired UI system:
@@ -42,13 +37,13 @@ This workspace uses a modern SaaS-inspired UI system:
 
 This project supports multiple commercial deployment options:
 
-### 🔹 Yearly License — $149/year  
+### 🔹 Yearly License — $49/year  
 Subscription-based access to the full platform.
 
-### 🔹 Lifetime License — $299 one-time  
+### 🔹 Lifetime License — $99 one-time  
 Permanent access without recurring billing.
 
-### 🔹 Source Code Buyout — $1,500 one-time  
+### 🔹 Source Code Buyout — $500 one-time  
 Full ownership of frontend system, Firebase schema, and serverless architecture.
 
 ---
