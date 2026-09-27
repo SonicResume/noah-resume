@@ -1,161 +1,238 @@
-import { Check, ArrowRight } from "lucide-react";
+"use client";
 
+import { useState } from "react";
+import { auth } from "../../firebase";
+
+const plans = [
+  {
+    name: "Free",
+    planKey: "free",
+    price: 0,
+    desc: "Perfect for getting started.",
+    stripePriceId: null,
+    features: [
+      "3 AI requests per day",
+      "Summary Generator",
+      "Bullet Point Generator",
+      "Resume Builder",
+    ],
+  },
+  {
+    name: "Pro",
+    planKey: "pro",
+    price: 19,
+    desc: "Built for active job seekers.",
+    stripePriceId: "price_1TbF9BPE4wCsfg732ScUJfmc",
+    features: [
+      "Unlimited Summary Generator",
+      "Unlimited Bullet Point Generator",
+      "Unlimited Resume Builder",
+      "Priority Support",
+    ],
+  },
+  {
+    name: "Business",
+    planKey: "business",
+    price: 29,
+    desc: "Everything professionals need.",
+    stripePriceId: "price_1TnzrFPE4wCsfg73xSOMZNuH",
+    features: [
+      "Everything in Pro",
+      "Unlimited Summary Generator",
+      "Unlimited Bullet Point Generator",
+      "Unlimited Resume Builder",
+      "Priority Support",
+    ],
+  },
+  {
+    name: "Premium",
+    planKey: "premium",
+    price: 49,
+    desc: "The complete AI career platform.",
+    stripePriceId: "price_1TGwAJPE4wCsfg73gMQlv8Ph",
+    features: [
+      "Everything in Business",
+      "Unlimited Summary Generator",
+      "Unlimited Bullet Point Generator",
+      "Unlimited Resume Builder",
+      "VIP Support",
+    ],
+  },
+];
 export default function PricingPage() {
-  const tiers = [
-    {
-      name: "Free Plan",
-      price: "$0",
-      period: "forever",
-      summary: "Build your initial profile and export a standard resume.",
-      bullets: [
-        "1 active resume profile",
-        "Standard layout builder",
-        "Basic sections allowed",
-        "Standard file download",
-      ],
-      buttonText: "Start Free",
-      href: "/auth/signup",
-      isPopular: false,
-    },
-    {
-      name: "Starter",
-      price: "$19.00",
-      period: "mo",
-      summary: "Manage multiple resume versions for targeted job applications.",
-      bullets: [
-        "Unlimited resume variants",
-        "Advanced section fields",
-        "Fast document exports",
-        "Removes builder branding",
-      ],
-      buttonText: "Subscribe",
-      href: "https://buy.stripe.com/9B6bJ36Lw1hMdw037x8k80F",
-      isPopular: false,
-    },
-    {
-      name: "Pro",
-      price: "$49.99",
-      period: "mo",
-      summary: "Unlock maximum styling control and deep profile customization.",
-      bullets: [
-        "Everything in Starter",
-        "Full formatting dashboard",
-        "Direct multi-format export",
-        "Priority customer support",
-      ],
-      buttonText: "Go Pro",
-      href: "https://buy.stripe.com/cNifZjedYf8C3VqeQf8k80G",
-      isPopular: true,
-    },
-    {
-      name: "Elite Bundle",
-      price: "$149.00",
-      period: "one-time",
-      summary: "Pay once for yearly access to the builder platform.",
-      bullets: [
-        "Lifetime account profile",
-        "All permanent feature builds",
-        "Zero recurring charges",
-        "Priority system access",
-      ],
-      buttonText: "Buy Lifetime",
-      href: "https://buy.stripe.com/dRmfZj4Do1hM2Rm8rR8k80c",
-      isPopular: false,
-    },
-    {
-      name: "License",
-      price: "$299.00",
-      period: "license",
-      summary: "Commercial single-user license to build resumes for clients.",
-      bullets: [
-        "Commercial profile usage",
-        "Extended version history",
-        "Developer export formats",
-        "Standard single license",
-      ],
-      buttonText: "Get License",
-      href: "https://buy.stripe.com/fZucN7d9UaSm3VqeQf8k80D",
-      isPopular: false,
-    },
-    {
-      name: "Enterprise",
-      price: "$1,500.00",
-      period: "license",
-      summary: "Full deployment license for large teams and organizations.",
-      bullets: [
-        "Full system access keys",
-        "Multi-seat configuration",
-        "Dedicated platform build",
-        "Complete builder features",
-      ],
-      buttonText: "Get Enterprise",
-      href: "https://buy.stripe.com/8x2dRb9XIf8CfE8dMb8k80E",
-      isPopular: false,
-    },
-  ];
+  const [loading, setLoading] = useState<string | null>(null);
+
+  async function checkout(plan: any) {
+    if (plan.planKey === "free") {
+      window.location.href = "/auth";
+      return;
+    }
+
+    setLoading(plan.planKey);
+
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          priceId: plan.stripePriceId,
+          plan: plan.planKey,
+          email: auth.currentUser?.email,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Checkout failed");
+      }
+
+      sessionStorage.setItem("noah_pending_plan", plan.planKey);
+      window.location.href = data.url;
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong starting checkout.");
+    } finally {
+      setLoading(null);
+    }
+  }
 
   return (
-    <div className="bg-slate-50 py-20 px-4 sm:px-6 lg:px-8 min-h-screen">
-      <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl">
-          Resume Builder Pricing
-        </h2>
-        <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-          Select the option that matches your current resume building goals.
-        </p>
+    <main className="min-h-screen bg-black text-white">
 
-        <div className="mt-16 space-y-6 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-6 xl:gap-4">
-          {tiers.map((tier) => (
-            <div
-              key={tier.name}
-              className={`border rounded-xl shadow-md divide-y divide-slate-100 bg-white flex flex-col justify-between transition-all hover:shadow-lg ${
-                tier.isPopular ? "border-blue-600 ring-2 ring-blue-600 scale-105 z-10" : "border-slate-200"
-              }`}
-            >
-              <div className="p-5 flex-1 flex flex-col">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-base font-bold text-slate-900 tracking-tight">{tier.name}</h3>
-                  {tier.isPopular && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      Popular
-                    </span>
-                  )}
-                </div>
-                
-                <p className="mt-2 text-xs text-slate-500 h-12 overflow-hidden text-left leading-relaxed">
-                  {tier.summary}
-                </p>
-
-                <p className="mt-5 flex items-baseline text-slate-900">
-                  <span className="text-2xl font-black tracking-tight">{tier.price}</span>
-                  <span className="ml-1 text-xs font-semibold text-slate-400">/{tier.period}</span>
-                </p>
-
-                <ul className="mt-6 space-y-3 flex-1">
-                  {tier.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-start">
-                      <Check className="flex-shrink-0 h-4 w-4 text-blue-500 mt-0.5" />
-                      <span className="ml-2 text-xs text-slate-600 text-left leading-tight">{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="p-4 bg-slate-50 rounded-b-xl">
-                <a
-                  href={tier.href}
-                  className={`flex items-center justify-center w-full py-2 px-3 border border-transparent rounded-lg shadow-sm text-xs font-bold text-white transition-colors ${
-                    tier.isPopular ? "bg-blue-600 hover:bg-blue-700" : "bg-slate-800 hover:bg-slate-900"
-                  }`}
-                >
-                  {tier.buttonText}
-                  <ArrowRight className="ml-1.5 h-3 w-3" />
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Background Glow */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-blue-700/20 blur-3xl" />
+        <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-yellow-500/10 blur-3xl" />
       </div>
-    </div>
+
+      <section className="relative z-10 max-w-7xl mx-auto px-6 py-24">
+
+        <div className="text-center mb-20">
+
+          <div className="inline-flex px-4 py-2 rounded-full border border-blue-500/40 bg-blue-500/10 text-blue-300 text-sm mb-6">
+            NOAH AI Career Platform
+          </div>
+
+          <h1 className="text-6xl font-black tracking-tight">
+
+            Upgrade Your
+
+            <span className="block bg-gradient-to-r from-blue-400 via-blue-300 to-yellow-400 bg-clip-text text-transparent">
+              Career Engine
+            </span>
+
+          </h1>
+
+          <p className="mt-8 text-xl text-zinc-400 max-w-3xl mx-auto">
+            Build stronger resumes, beat ATS filters, prepare for interviews,
+            and accelerate your career with NOAH's AI-powered platform.
+          </p>
+
+        </div>
+
+        <div className="grid lg:grid-cols-4 gap-8">
+
+          {plans.map((plan) => {
+
+            const featured = plan.planKey === "business";
+
+            return (
+
+              <div
+                key={plan.planKey}
+                className={`relative rounded-3xl border transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl overflow-hidden
+
+                ${
+                  featured
+                    ? "border-yellow-400 shadow-[0_0_60px_rgba(250,204,21,.15)] bg-zinc-900"
+                    : "border-zinc-800 bg-zinc-950"
+                }`}
+              >
+
+                {featured && (
+                  <div className="bg-gradient-to-r from-orange-500 to-orange-400 text-white text-center py-3 font-bold">
+                    ★ MOST POPULAR ★
+                  </div>
+                )}
+
+                <div className="p-8">
+
+                  <h2 className="text-3xl font-bold">
+                    {plan.name}
+                  </h2>
+
+                  <p className="text-zinc-400 mt-3">
+                    {plan.desc}
+                  </p>
+
+                  <div className="mt-8">
+
+                    <span className="text-6xl font-black">
+                      ${plan.price}
+                    </span>
+
+                    <span className="text-zinc-500 text-lg">
+                      /month
+                    </span>
+
+                  </div>
+
+                  <button
+                    onClick={() => checkout(plan)}
+                    className={`mt-8 w-full rounded-xl py-4 font-bold text-lg transition
+
+                    ${
+                      featured
+                        ? "bg-gradient-to-r from-yellow-400 to-yellow-300 text-black hover:scale-105"
+                        : plan.planKey === "free"
+                        ? "bg-zinc-800 hover:bg-zinc-700"
+                        : "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400"
+                    }`}
+                  >
+                    {loading === plan.planKey
+                      ? "Processing..."
+                      : plan.planKey === "free"
+                      ? "Start Free"
+                      : "Upgrade Now"}
+                  </button>
+
+                  <div className="mt-10 space-y-4">
+
+                    {plan.features.map((feature) => (
+                      <div
+                        key={feature}
+                        className="flex items-start gap-3"
+                      >
+                        <div className="text-yellow-400 mt-0.5">
+                          ✓
+                        </div>
+
+                        <span className="text-zinc-300">
+                          {feature}
+                        </span>
+                      </div>
+                    ))}
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            );
+          })}
+
+        </div>
+
+        <div className="mt-20 text-center text-zinc-500 text-sm">
+          Secure payments powered by Stripe • Cancel anytime • No hidden fees
+        </div>
+
+      </section>
+
+    </main>
   );
 }

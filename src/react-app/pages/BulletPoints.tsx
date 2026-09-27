@@ -114,7 +114,7 @@ function sendToBuilder() {
             <button
               onClick={generateBulletPoints}
               disabled={loading || !jobDescription.trim() || !experience.trim()}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-400 disabled:to-slate-500 text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl disabled:cursor-not-allowed"
+              className="w-full bg-orange-500 hover:bg-orange-600 disabled:from-slate-400 disabled:to-slate-500 text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl disabled:cursor-not-allowed"
             >
               {loading ? (
                 <div className="flex items-center justify-center space-x-2">
@@ -133,7 +133,7 @@ function sendToBuilder() {
                   setExperience("");
                   setBulletPoints("");
               }}
-              className="w-full mt-3 bg-slate-200 hover:bg-slate-300 text-slate-800 font-medium py-3 px-6 rounded-xl"
+              className="w-full mt-3 bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 px-6 rounded-xl"
             >
              Clear
            </button> 
@@ -152,7 +152,7 @@ function sendToBuilder() {
               <h2 className="text-xl font-bold text-slate-800">Generated Bullet Points</h2>
               <button
                 onClick={copyToClipboard}
-                className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-medium rounded-lg transition-all shadow-md hover:shadow-lg"
+                className="flex items-center space-x-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-all shadow-md hover:shadow-lg"
               >
                 {copied ? (
                   <>

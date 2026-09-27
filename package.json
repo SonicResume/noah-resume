@@ -10,7 +10,7 @@
     "clsx": "^2.1.1",
     "cors": "^2.8.6",
     "express": "^5.2.1",
-    "firebase": "^12.12.1",
+    "firebase": "^12.19.0",
     "framer-motion": "^12.40.0",
     "hono": "4.7.7",
     "html-to-image": "^1.11.13",
