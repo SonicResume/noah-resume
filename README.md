@@ -23,17 +23,17 @@ This workspace uses a modern SaaS-inspired UI system:
 
 ## 📁 Core Application Routes
 
-BlogPage.tsx
-BulletPoints.tsx
-Contact.tsx
-Dashboard.tsx
-LandingPage.tsx
-Pricing.tsx
-Privacy.tsx
-ResumeBuilder.tsx
-Summary.tsx
-Terms.tsx
-AuthPage.tsx
+1. `BlogPage.tsx`
+2. `BulletPoints.tsx`
+3. `Contact.tsx`
+4. `Dashboard.tsx`
+5. `LandingPage.tsx`
+6. `Pricing.tsx`
+7. `Privacy.tsx`
+8. `ResumeBuilder.tsx`
+9. `Summary.tsx`
+10. `Terms.tsx`
+11. `AuthPage.tsx`
 
 ---
 
@@ -58,6 +58,7 @@ Full ownership of frontend system, Firebase schema, and serverless architecture.
 - Tailwind CSS
 - Firebase (Authentication + Firestore)
 - Vercel Functions (Serverless API layer)
+- Backend billing is seperate and available to buyer only
 
 ---
 
