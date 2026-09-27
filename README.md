@@ -23,13 +23,17 @@ This workspace uses a modern SaaS-inspired UI system:
 
 ## 📁 Core Application Routes
 
-- `/` → Public landing page
-- `/pricing` → Subscription and licensing tiers
-- `/builder` → Multi-step resume input system
-- `/summary` → Executive profile generator
-- `/bullets` → Job responsibility bullet formatter
-- `/contact` → Support and communication page
-- `/privacy` & `/terms` → Legal documentation
+BlogPage.tsx
+BulletPoints.tsx
+Contact.tsx
+Dashboard.tsx
+LandingPage.tsx
+Pricing.tsx
+Privacy.tsx
+ResumeBuilder.tsx
+Summary.tsx
+Terms.tsx
+AuthPage.tsx
 
 ---
 
@@ -43,7 +47,7 @@ Subscription-based access to the full platform.
 ### 🔹 Lifetime License — $99 one-time  
 Permanent access without recurring billing.
 
-### 🔹 Source Code Buyout — $500 one-time  
+### 🔹 Source Code Buyout — $1000 one-time  
 Full ownership of frontend system, Firebase schema, and serverless architecture.
 
 ---
