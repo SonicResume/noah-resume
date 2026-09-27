@@ -50,6 +50,7 @@ Permanent access without recurring billing.
 ### 🔹 Source Code Buyout — $1000 one-time  
 Full ownership of frontend system, Firebase schema, and serverless architecture.
 
+Resume Builder and Resume Templates — Open Source
 ---
 
 ## ⚙️ Tech Stack
